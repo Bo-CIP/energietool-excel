@@ -1,3 +1,4 @@
+
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -34,19 +35,25 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import Background from "@/components/ui/Background";
+
+
+
+
 
 export default function CardWithForm() {
   return (
     <>
 
+      <Background/>
+
       {/*Begin eerste rij aan invoer velden op cards*/}
 
       {/*Eerste card */}
 
-
-      <div className="flex flex-row">
+      <div className="flex flex-row z-[10]">
         <div className="flex flex-col">
-          <Card className="w-[550px] h-[600px] ml-16 mt-8">
+          <Card className="card w-[550px] h-[600px] ml-16 mt-8">
             <CardHeader>
               <CardTitle className="mb-2">Bedrijf gegevens</CardTitle>
             </CardHeader>
@@ -88,7 +95,7 @@ export default function CardWithForm() {
 
           {/* Begin tweede card */}
 
-          <Card className="w-[550px] h-[450px] mt-8 ml-16 mb-8 ">
+          <Card className="card w-[550px] h-[450px] mt-8 ml-16 mb-8 ">
             <CardHeader>
               <CardTitle className=""></CardTitle>
             </CardHeader>
@@ -170,7 +177,7 @@ export default function CardWithForm() {
         <div className="flex flex-row">
           <div className="flex flex-col">
 
-            <Card className="w-[555px] h-[280px] ml-8 mt-8 ">
+            <Card className="card w-[555px] h-[280px] ml-8 mt-8 ">
               <CardHeader>
                 <CardTitle className="mb-2">Huidig energieverbruik</CardTitle>
               </CardHeader>
@@ -196,7 +203,7 @@ export default function CardWithForm() {
 
             {/* Begin tweede card */}
 
-            <Card className="w-[555px] h-[388px] mt-8 ml-8 ">
+            <Card className="card w-[555px] h-[388px] mt-8 ml-8 ">
               <CardHeader>
                 <CardTitle className=""></CardTitle>
               </CardHeader>
@@ -248,7 +255,7 @@ export default function CardWithForm() {
               </CardFooter>
             </Card> {/*Einde tweede card */}
 
-            <Card className="w-[560px] h-[350px] ml-8 mt-8 mb-3">
+            <Card className="card w-[560px] h-[350px] ml-8 mt-8 mb-3">
                 <CardHeader>
                   <CardTitle className="mb-4">Uw energielabel</CardTitle>
                   <Alert variant="destructive">
@@ -303,7 +310,7 @@ export default function CardWithForm() {
 
           <div className="flex flex-row">
             <div className="flex flex-col">
-              <Card className="w-[560px] h-[700px] ml-8 mt-8 mb-1">
+              <Card className="card w-[560px] h-[700px] ml-8 mt-8 mb-1">
                 <CardHeader>
                   <CardTitle className=""></CardTitle>
                 </CardHeader>
