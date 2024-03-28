@@ -1,4 +1,4 @@
-
+"use client"
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -35,7 +35,19 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter
+} from "@/components/ui/dialog"
 import Background from "@/components/ui/Background";
+import { Chart } from "@/components/ui/chart";
+import { Home } from 'lucide-react'
 
 
 
@@ -45,7 +57,7 @@ export default function CardWithForm() {
   return (
     <>
 
-      <Background/>
+      <Background />
 
       {/*Begin eerste rij aan invoer velden op cards*/}
 
@@ -256,45 +268,45 @@ export default function CardWithForm() {
             </Card> {/*Einde tweede card */}
 
             <Card className="card w-[560px] h-[350px] ml-8 mt-8 mb-3">
-                <CardHeader>
-                  <CardTitle className="mb-4">Uw energielabel</CardTitle>
-                  <Alert variant="destructive">
-                    <AlertCircle className="h-4 w-4" />
-                    <AlertTitle>Let op!</AlertTitle>
-                    <AlertDescription>
-                      C is het minimum voor een bedrijfspand of 100 m2 kantoor
-                    </AlertDescription>
-                  </Alert>
-                </CardHeader>
-                <CardContent>
-                  <form>
-                    <div className="grid w-full items-center gap-4">
-                      <div className="flex flex-col space-y-1.5">
-                        <Label className="mb-1" htmlFor="name">kWh</Label>
-                        <Input id="elektriciteit" placeholder="Uw waarden" />
-                      </div>
+              <CardHeader>
+                <CardTitle className="mb-4">Uw energielabel</CardTitle>
+                <Alert variant="destructive">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertTitle>Let op!</AlertTitle>
+                  <AlertDescription>
+                    C is het minimum voor een bedrijfspand of 100 m2 kantoor
+                  </AlertDescription>
+                </Alert>
+              </CardHeader>
+              <CardContent>
+                <form>
+                  <div className="grid w-full items-center gap-4">
+                    <div className="flex flex-col space-y-1.5">
+                      <Label className="mb-1" htmlFor="name">kWh</Label>
+                      <Input id="elektriciteit" placeholder="Uw waarden" />
                     </div>
-                  </form>
-                  <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                      <Button className="w-[200px] h-[50px] mt-8 ml-44 items-center">Bereken uw energielabel</Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle className="mb-8">Uw huidige energielabel is</AlertDialogTitle>
-                        <AlertDialogDescription className="text-center text-5xl mt-64">
-                          G
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter className="mt-6">
-                        <AlertDialogAction>Oke</AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
-                </CardContent>
-                <CardFooter className="flex justify-between">
-                </CardFooter>
-              </Card>
+                  </div>
+                </form>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button className="w-[200px] h-[50px] mt-8 ml-44 items-center">Bereken uw energielabel</Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle className="mb-8">Uw huidige energielabel is</AlertDialogTitle>
+                      <AlertDialogDescription className="text-center text-5xl mt-64">
+                        G
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="mt-6">
+                      <AlertDialogAction>Oke</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </CardContent>
+              <CardFooter className="flex justify-between">
+              </CardFooter>
+            </Card>
 
             {/*Begin derde card*/}
 
@@ -352,29 +364,85 @@ export default function CardWithForm() {
                         <Label className="" htmlFor="framework">Netto levering door energieleverancier kWh berekend</Label>
                         <Input id="elektriciteit" placeholder="Uw waarden" />
                       </div>
-                      <div className="flex flex-col space-y-1.5">
-                      <Button className="w-[300px] h-[50px] mt-12 ml-24">Bereken uw energievebruik</Button>
-                      </div>
-                      
+
 
                     </div>
                   </form>
+
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button className="w-[300px] h-[50px] mt-8 ml-28 items-center">Bereken uw energieverbruik</Button>
+                    </DialogTrigger>
+                    <DialogContent className="min-w-[1600px] h-[910px] flex flex-col justify-between">
+                      <DialogHeader>
+                        <DialogTitle className="mb-8">Hieronder ziet u uw berekend energieverbruik</DialogTitle>
+                        <DialogDescription className="text-center text-5xl mt-64">
+                          <Chart />
+                        </DialogDescription>
+                      </DialogHeader>
+                      <DialogFooter className="mt-6">
+                        <DialogClose asChild>
+                          <Button type="button" variant="default" className="mb-5">
+                            Sluiten
+                          </Button>
+                        </DialogClose>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
                 </CardContent>
                 <CardFooter className="flex justify-between">
                 </CardFooter>
               </Card>
 
-              
-              </div>
-              
-              </div>
-            </div>
+              <Card className="card w-[560px] h-[175px] ml-8 mt-7 mb-1">
+                <CardHeader>
+                  <CardTitle className=""></CardTitle>
+                </CardHeader>
+                <CardContent>
 
+
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                </CardFooter>
+              </Card>
+
+              <Card className="card w-[560px] h-[75px] ml-8 mt-2 mb-1">
+  <CardHeader>
+    <CardTitle className="flex items-center justify-between">
+      <div className="flex items-center">
+        <Home className="mr-2" />
+        <span>Ga terug naar de home pagina</span>
+      </div>
+    </CardTitle>
+  </CardHeader>
+  <CardContent></CardContent>
+  <CardFooter className="flex justify-between"></CardFooter>
+</Card>
+
+
+              <Card className="card w-[560px] h-[75px] ml-8 mt-2 mb-1">
+                <CardHeader>
+                  <CardTitle className=""></CardTitle>
+                </CardHeader>
+                <CardContent>
+
+
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                </CardFooter>
+              </Card>
+
+            </div>
 
           </div>
 
+        </div>
 
-        {/*Einde derde rij aan invoer velden op cards */}
+
+      </div>
+
+
+      {/*Einde derde rij aan invoer velden op cards */}
     </>
 
 
