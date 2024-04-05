@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -77,8 +79,9 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { Chart } from "@/components/ui/chart"
 
-export default function BerekenDashboard() {
+export default function AccountBerekenDashboard() {
     return (
         <div className="flex min-h-screen w-full flex-col bg-muted/40">
             <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -214,11 +217,11 @@ export default function BerekenDashboard() {
                                 </CardFooter>
                             </Card>
                         </div>
-                        <Tabs defaultValue="week">
+                        <Tabs defaultValue="berekening-user">
                             <div className="flex items-center">
                                 <TabsList>
-                                    <TabsTrigger value="week">Week</TabsTrigger>
-                                    <TabsTrigger value="month">Month</TabsTrigger>
+                                    <TabsTrigger value="berekening-user">Mijn berekeningen</TabsTrigger>
+                                    <TabsTrigger value="terugverdientijd">Terugverdientijd</TabsTrigger>
                                     <TabsTrigger value="year">Year</TabsTrigger>
                                 </TabsList>
                                 <div className="ml-auto flex items-center gap-2">
@@ -246,12 +249,12 @@ export default function BerekenDashboard() {
                                     </DropdownMenu>
                                 </div>
                             </div>
-                            <TabsContent value="week">
+                            <TabsContent value="berekening-user">
                                 <Card>
                                     <CardHeader className="px-7">
-                                        <CardTitle>Berekeningen</CardTitle>
+                                        <CardTitle>Mijn eerdere berekeningen</CardTitle>
                                         <CardDescription>
-                                            Zie recentelijke berekeningen
+                                            Zie uw recentelijke berekeningen
                                         </CardDescription>
                                     </CardHeader>
                                     <CardContent>
@@ -268,120 +271,32 @@ export default function BerekenDashboard() {
                                                 </TableRow>
                                             </TableHeader>
                                             <TableBody>
-                                                <TableRow className="bg-accent">
-                                                    <TableCell>
-                                                        <div className="font-medium">Liam Johnson</div>
-                                                        <div className="hidden text-sm text-muted-foreground md:inline">
-                                                            liam@example.com
-                                                        </div>
-                                                    </TableCell>
-                                                    <TableCell className="hidden sm:table-cell">
-                                                        Sale
-                                                    </TableCell>
-                                                    <TableCell className="hidden md:table-cell">
-                                                        2023-06-23
-                                                    </TableCell>
-                                                </TableRow>
                                                 <TableRow>
                                                     <TableCell>
-                                                        <div className="font-medium">Olivia Smith</div>
-                                                        <div className="hidden text-sm text-muted-foreground md:inline">
-                                                            olivia@example.com
-                                                        </div>
+                                                        Sergio
                                                     </TableCell>
-                                                    <TableCell className="hidden sm:table-cell">
-                                                        Refund
-                                                    </TableCell>
-                                                    <TableCell className="hidden md:table-cell">
-                                                        2023-06-24
-                                                    </TableCell>
-                                                </TableRow>
-                                                <TableRow>
                                                     <TableCell>
-                                                        <div className="font-medium">Liam Johnson</div>
-                                                        <div className="hidden text-sm text-muted-foreground md:inline">
-                                                            liam@example.com
-                                                        </div>
+                                                        Vernieuwing
                                                     </TableCell>
-                                                    <TableCell className="hidden sm:table-cell">
-                                                        Sale
-                                                    </TableCell>
-                                                    <TableCell className="hidden md:table-cell">
-                                                        2023-06-23
-                                                    </TableCell>
-                                                </TableRow>
-                                                <TableRow>
                                                     <TableCell>
-                                                        <div className="font-medium">Noah Williams</div>
-                                                        <div className="hidden text-sm text-muted-foreground md:inline">
-                                                            noah@example.com
-                                                        </div>
-                                                    </TableCell>
-                                                    <TableCell className="hidden sm:table-cell">
-                                                        Subscription
-                                                    </TableCell>
-                                                    <TableCell className="hidden md:table-cell">
-                                                        2023-06-25
-                                                    </TableCell>
-                                                </TableRow>
-                                                <TableRow>
-                                                    <TableCell>
-                                                        <div className="font-medium">Emma Brown</div>
-                                                        <div className="hidden text-sm text-muted-foreground md:inline">
-                                                            emma@example.com
-                                                        </div>
-                                                    </TableCell>
-                                                    <TableCell className="hidden sm:table-cell">
-                                                        Sale
-                                                    </TableCell>
-                                                    <TableCell className="hidden md:table-cell">
-                                                        2023-06-26
-                                                    </TableCell>
-                                                </TableRow>
-                                                <TableRow>
-                                                    <TableCell>
-                                                        <div className="font-medium">Liam Johnson</div>
-                                                        <div className="hidden text-sm text-muted-foreground md:inline">
-                                                            liam@example.com
-                                                        </div>
-                                                    </TableCell>
-                                                    <TableCell className="hidden sm:table-cell">
-                                                        Sale
-                                                    </TableCell>
-                                                    <TableCell className="hidden md:table-cell">
-                                                        2023-06-23
-                                                    </TableCell>
-                                                </TableRow>
-                                                <TableRow>
-                                                    <TableCell>
-                                                        <div className="font-medium">Olivia Smith</div>
-                                                        <div className="hidden text-sm text-muted-foreground md:inline">
-                                                            olivia@example.com
-                                                        </div>
-                                                    </TableCell>
-                                                    <TableCell className="hidden sm:table-cell">
-                                                        Refund
-                                                    </TableCell>
-                                                    <TableCell className="hidden md:table-cell">
-                                                        2023-06-24
-                                                    </TableCell>
-                                                </TableRow>
-                                                <TableRow>
-                                                    <TableCell>
-                                                        <div className="font-medium">Emma Brown</div>
-                                                        <div className="hidden text-sm text-muted-foreground md:inline">
-                                                            emma@example.com
-                                                        </div>
-                                                    </TableCell>
-                                                    <TableCell className="hidden sm:table-cell">
-                                                        Sale
-                                                    </TableCell>
-                                                    <TableCell className="hidden md:table-cell">
-                                                        2023-06-26
+                                                        04-04-2024
                                                     </TableCell>
                                                 </TableRow>
                                             </TableBody>
                                         </Table>
+                                    </CardContent>
+                                </Card>
+                            </TabsContent>
+                            <TabsContent value="terugverdientijd">
+                                <Card>
+                                    <CardHeader className="px-7">
+                                        <CardTitle>Mijn eerdere berekeningen</CardTitle>
+                                        <CardDescription>
+                                            Zie uw recentelijke berekeningen
+                                        </CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <Chart></Chart>
                                     </CardContent>
                                 </Card>
                             </TabsContent>

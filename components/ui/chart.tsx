@@ -26,31 +26,27 @@ export const options = {
     legend: {
       position: 'top' as const,
     },
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart',
-    },
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = ['Alleen Isoleren', 'Alleen zonnepanelen', 'Hybride warmtepomp', 'Lucht/water warmtepomp', 'Airco 2 units split systeem', 'Grond/water warmtepomp', 'Accu kWh/prijs'];
 
 export const data = {
   labels,
   datasets: [
     {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      label: 'Terugverdientijd particulier warmtepomp of airco met/zonder zonnepanelen en accu  (alleen bij dynamisch contract)',
+      data: labels.map(() => faker.number.int({ min: 0, max: 1000 })),
+      backgroundColor: 'rgba(61, 236, 52, 0.58)',
     },
     {
-      label: 'Dataset 2',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      label: 'Terugverdientijd zakelijk warmtepomp of airco met/zonder zonnepanelen en accu  (alleen bij dynamisch contract)',
+      data: labels.map(() => faker.number.int({ min: 0, max: 1000 })),
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
     },
   ],
 };
 
-export function App() {
+export function Chart() {
   return <Bar options={options} data={data} />;
 }
