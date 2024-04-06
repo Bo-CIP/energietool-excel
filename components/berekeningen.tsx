@@ -207,7 +207,7 @@ export default function BerekenDashboard() {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardFooter>
-                                    <Link href="/dashboard/berekeningen/create">
+                                    <Link href="/dashboard/alle-berekeningen">
                                     <Button>Maak een nieuwe berekening</Button>
                                     </Link>
                                     
