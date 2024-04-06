@@ -101,7 +101,7 @@ export default function BerekenDashboard() {
                         <Tooltip> 
                             <TooltipTrigger asChild>
                                 <Link
-                                    href="/dashboard/berekeningen"
+                                    href="/dashboard/mijn-berekeningen"
                                     className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                                 >
                                     <Calculator className="h-5 w-5" />
@@ -157,7 +157,7 @@ export default function BerekenDashboard() {
                             </BreadcrumbItem>
                             <BreadcrumbSeparator />
                             <BreadcrumbItem>
-                                <BreadcrumbPage>Berekeningen</BreadcrumbPage>
+                                <BreadcrumbPage>Alle berekeningen</BreadcrumbPage>
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
@@ -218,8 +218,8 @@ export default function BerekenDashboard() {
                             <div className="flex items-center">
                                 <TabsList>
                                     <TabsTrigger value="week">Week</TabsTrigger>
-                                    <TabsTrigger value="month">Month</TabsTrigger>
-                                    <TabsTrigger value="year">Year</TabsTrigger>
+                                    <TabsTrigger value="maand">Maand</TabsTrigger>
+                                    <TabsTrigger value="jaar">Jaar</TabsTrigger>
                                 </TabsList>
                                 <div className="ml-auto flex items-center gap-2">
                                     <DropdownMenu>
