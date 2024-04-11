@@ -8,7 +8,7 @@ export default function Stap1() {
         <>
         
         
-        <div className="flex justify-center mx-auto mt-8">
+        <div className="flex justify-center mx-auto mt-6">
         <form className="max-w-[500px]">
             <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">

@@ -129,7 +129,6 @@ export default function LandingsDashboard() {
               <CardContent>
                 <Dialog>
                   <DialogTrigger asChild><Button size="sm" className="ml-auto gap-1 mt-6">
-
                     Ga nu!
                     <ArrowUpRight className="h-4 w-4" />
                   </Button></DialogTrigger>
