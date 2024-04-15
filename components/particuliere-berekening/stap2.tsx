@@ -8,6 +8,12 @@ import {
     SelectItem,
     SelectTrigger
 } from "@/components/ui/select"
+import { CircleHelp } from "lucide-react";
+import {
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
+} from "@/components/ui/hover-card"
 
 export default function Stap2() {
     return (
@@ -22,7 +28,7 @@ export default function Stap2() {
                                     <Label className="" htmlFor="name">
                                         Bouwjaar van woning
                                     </Label>
-                                    <Input id="bouwjaar" placeholder="Uw waarden" />
+                                    <Input type="number" id="bouwjaar" placeholder="Uw waarden" />
                                 </div>
                             </div>
                             <div className="col-span-6">
@@ -30,7 +36,7 @@ export default function Stap2() {
                                     <Label className="" htmlFor="framework">
                                         m2 woonoppervlak
                                     </Label>
-                                    <Input id="woonoppervlak" placeholder="Uw waarden" />
+                                    <Input type="number" id="woonoppervlak" placeholder="Uw waarden" />
                                 </div>
                             </div>
                         </div>
@@ -87,9 +93,17 @@ export default function Stap2() {
                         <div className="grid grid-cols-12 gap-4">
                             <div className="col-span-6">
                                 <div className="flex flex-col space-y-1.5">
-                                    <Label className="" htmlFor="framework">
+                                    <Label className="relative inline-block" htmlFor="framework">
                                         CV temperatuur
+
+                                        <HoverCard>
+                                            <HoverCardTrigger><CircleHelp size={16} className="absolute top-0 right-[7rem]" /></HoverCardTrigger>
+                                            <HoverCardContent>
+                                            Als CV water bij koud weer boven 50 graden C. komt dan uitsluitend hybride warmtepomp of airco toepassen
+                                            </HoverCardContent>
+                                        </HoverCard>
                                     </Label>
+
                                     <Select>
                                         <SelectTrigger>
                                             <SelectValue placeholder="Kies uit..." />
@@ -147,7 +161,7 @@ export default function Stap2() {
                                     <Label className="" htmlFor="framework">
                                         Zonnepanelen al aanwezig
                                     </Label>
-                                    <Input id="gas-m3" placeholder="Uw waarden"></Input>
+                                    <Input type="number" id="gas-m3" placeholder="Uw waarden"></Input>
                                 </div>
                             </div>
                         </div>

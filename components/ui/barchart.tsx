@@ -47,6 +47,6 @@ export const data = {
   ],
 };
 
-export function Chart() {
+export function BarChart() {
   return <Bar options={options} data={data} />;
 }
