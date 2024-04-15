@@ -16,6 +16,15 @@ import {
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 
 export default function Stap5() {
 
@@ -33,15 +42,13 @@ export default function Stap5() {
                             </AlertDescription>
                         </Alert>
 
-                        <div className="grid grid-cols-8 gap-4 mt-16">
-                            <div className="col-span-4">
+                        <div className="grid grid-cols-2 gap-4 mt-16 justify-items-center">
+                            <div className="col-span-2">
                                 <div className="flex flex-col space-y-1.5">
-                                <Button>Bereken energie label</Button>
-                                </div>
-                            </div>
-                            <div className="col-span-4">
-                                <div className="flex flex-col space-y-1.5">
-                                    <Button>Bereken uw verbruik</Button>
+                                    <Link href="dashboard/resultaat">
+                                <Button className="items-center">Ga naar uw resultaten</Button>
+                                </Link>
+
                                 </div>
                             </div>
                         </div>
