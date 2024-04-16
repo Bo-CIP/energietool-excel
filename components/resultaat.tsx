@@ -162,8 +162,12 @@ export default function Resultaat() {
                                     <h1 className="text-5xl mt-5"><ArrowRight /> </h1>
                                     <h1 className="text-5xl mt-5 mr-44 text-yellow-500">D</h1>
                                 </div>
-                                <Separator className="mt-5" />
                                 <div className="flex items-center justify-between mt-9">
+                                    <h1 className="text-3xl ml-9">Label</h1>
+                                    <h1 className="text-3xl mr-16">kWh</h1>
+                                    </div>
+                                    <Separator className="mt-2" />
+                                <div className="flex items-center justify-between mt-3">
                                     <h1 className="text-3xl ml-16 text-red-500">G</h1>
                                     <h1 className="text-3xl ml-11 text-center">=</h1>
                                     <h1 className="text-3xl mr-16">380</h1>
