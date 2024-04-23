@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "start:clean": "rmdir /s /q .next && next build && next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -34,12 +35,16 @@
     "react-icons": "^5.0.1",
     "swiper": "^11.1.0",
     "tailwind-merge": "^2.2.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "validator": "^13.11.0",
+    "validator.js": "^2.0.4",
+    "zod": "^3.23.3"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/validator": "^13.11.9",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.1.4",

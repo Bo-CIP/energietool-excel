@@ -122,7 +122,7 @@ export default function Resultaat() {
                                     <CardHeader className="px-7">
                                         <CardTitle>Terug verdienen!</CardTitle>
                                         <CardDescription>
-                                            Hieronder ziet u een grafiek, deze grafiek laat zien hoelang het zal duren voordat uw energie zichzelf heeft terugbetaald
+                                            Hieronder ziet u een grafiek, deze grafiek laat zien hoelang het zal duren voordat uw energie zichzelf heeft terugbetaald. Hier kunt u zien hoelang de verschillende bezuinigigen zullen duren om zichzelf terug te verdienen
                                         </CardDescription>
                                     </CardHeader>
                                     <CardContent>

@@ -13,17 +13,23 @@ import Link from 'next/link';
 import 'swiper/css';
 import { useActionState, useEffect, useState } from 'react';
 import { Button } from './ui/button';
+import { FinalForm, Stap1Form, Stap1Validator } from '@/lib/definitions';
+import { ZodError, ZodIssue } from 'zod';
 
 export default () => {
 
   var [currentprogressvalue, setProgressValue] = useState(25);
   const [my_swiper, setMySwiper] = useState<SwiperClass>();
   var [currentindexvalue, setCurrentIndexValue] = useState(1);
-
+  var [form, setForm] = useState<FinalForm>({ stap1: { bedrijf_naam: '', contactpersoon_naam: '', straatnaam: '', huisnummer: '', plaats: '', postcode: '', telefoonnummer: '', email: '' },
+                                              stap2: { bouwjaar: undefined, oppervlakte: '', vw_systeem: '', verwarming: '', isolatie_type: '', cv_temp: '', ventilatie: '', glas_type: '', zp_aanwezig: ''}
+                                              });
+  // var [errors, setErrors] = useState<ZodIssue[]>([]);
 
   useEffect(() => {
 
   }, [currentindexvalue]);
+
 
   const getButtonValue = () => {
     if (currentindexvalue == 4) {
@@ -32,6 +38,31 @@ export default () => {
       return <ArrowRight />;
     }
   }
+
+  const disabled = (): boolean => {
+    switch (currentindexvalue) {
+      case 1:
+        const validation = Stap1Validator(form);
+        if (!validation.success) {
+          console.log('worng');
+          // setErrors(errorss);
+          return true; // Disable the element if validation fails
+        } else {
+          return false; // Enable the element if validation passes
+        }
+        case 1:
+        const validation2 = Stap1Validator(form);
+        if (!validation2.success) {
+          console.log('worng');
+          return true; // Disable the element if validation fails
+        } else {
+          return false; // Enable the element if validation passes
+        }
+  
+      default:
+        return true; // Disable by default for other cases
+    }
+  };
   return (
 
     <>
@@ -49,22 +80,25 @@ export default () => {
         simulateTouch={false}
         onInit={(swiper) => setMySwiper(swiper)}
         onSlideChange={index => {
-          console.log();
           setProgressValue((index.activeIndex + 1) * 25);
           setCurrentIndexValue((index.activeIndex + 1));
-          console.log((index.activeIndex));
         }}
       >
-        <SwiperSlide><Stap1 /></SwiperSlide>
+        <SwiperSlide><Stap1 form={form} setValue={setForm} /></SwiperSlide>
         <SwiperSlide><Stap2 /></SwiperSlide>
         <SwiperSlide><Stap3 /></SwiperSlide>
         <SwiperSlide><Stap4 /></SwiperSlide>
       </Swiper>
+      {/* {
+        errors && errors.map((error, index) => (
+          <h1 key={index} className='text-red'>{error.message}</h1>
+        ))
+      } */}
       <div className="flex mt-16 justify-center gap-56">
-        <Button className="" onClick={() => my_swiper!.slidePrev()}>
+        <Button disabled={currentindexvalue == 1} className="" onClick={() => my_swiper!.slidePrev()}>
           <ArrowLeft />
         </Button>
-        <Button className="" onClick={() => my_swiper!.slideNext()}>
+        <Button disabled={disabled()} className="" onClick={() => my_swiper!.slideNext()}>
           {getButtonValue()}
         </Button>
       </div>

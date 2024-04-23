@@ -36,12 +36,12 @@ export const data = {
   datasets: [
     {
       label: 'Terugverdientijd particulier warmtepomp of airco met/zonder zonnepanelen en accu  (alleen bij dynamisch contract)',
-      data: labels.map(() => faker.number.int({ min: 0, max: 1000 })),
+      data: labels.map(() => faker.number.int({ min: 0, max: 50 })),
       backgroundColor: 'rgba(61, 236, 52, 0.58)',
     },
     {
       label: 'Terugverdientijd zakelijk warmtepomp of airco met/zonder zonnepanelen en accu  (alleen bij dynamisch contract)',
-      data: labels.map(() => faker.number.int({ min: 0, max: 1000 })),
+      data: labels.map(() => faker.number.int({ min: 0, max: 50 })),
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
     },
   ],
