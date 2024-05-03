@@ -143,7 +143,7 @@ export default function Stap2() {
                                     <Label className="" htmlFor="framework">
                                         Glas beneden
                                     </Label>
-                                    <Select>
+                                    <Select >
                                         <SelectTrigger>
                                             <SelectValue placeholder="Kies uit..." />
                                         </SelectTrigger>

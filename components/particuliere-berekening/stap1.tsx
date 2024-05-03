@@ -33,13 +33,13 @@ const Stap1 = (props: Props) => {
                     <Label className="" htmlFor="name">
                         Naam bedrijf
                     </Label>
-                    <Input name="bedrijf_naam" id="" placeholder="Uw waarden" value={props.form.stap1.bedrijf_naam} onChange={handleChange} />
+                    <Input maxLength={30} name="bedrijf_naam" id="" placeholder="Uw waarden" value={props.form.stap1.bedrijf_naam} onChange={handleChange} />
                 </div>
                 <div className="flex flex-col space-y-1.5">
                     <Label className="" htmlFor="framework">
                         Naam contactpersoon
                     </Label>
-                    <Input name="contactpersoon_naam" id="" placeholder="Uw waarden" value={props.form.stap1.contactpersoon_naam} onChange={handleChange} />
+                    <Input maxLength={40} name="contactpersoon_naam" id="" placeholder="Uw waarden" value={props.form.stap1.contactpersoon_naam} onChange={handleChange} />
                 </div>
                 <div className="grid grid-cols-12 gap-4">
                     <div className="col-span-8">
@@ -47,7 +47,7 @@ const Stap1 = (props: Props) => {
                             <Label className="" htmlFor="framework">
                                 Straat 
                             </Label>
-                            <Input name="straatnaam" id="" placeholder="Uw waarden" value={props.form.stap1.straatnaam} onChange={handleChange}/>
+                            <Input maxLength={25} name="straatnaam" id="" placeholder="Uw waarden" value={props.form.stap1.straatnaam} onChange={handleChange}/>
                         </div>
                     </div>
                     <div className="col-span-4">
@@ -55,7 +55,7 @@ const Stap1 = (props: Props) => {
                             <Label className="" htmlFor="framework">
                                 Huisnummer
                             </Label>
-                            <Input name="huisnummer" id="" placeholder="Uw waarden" value={props.form.stap1.huisnummer} onChange={handleChange} />
+                            <Input maxLength={10} name="huisnummer" id="" placeholder="Uw waarden" value={props.form.stap1.huisnummer} onChange={handleChange} />
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@ const Stap1 = (props: Props) => {
                             <Label className="" htmlFor="framework">
                                 Plaats
                             </Label>
-                            <Input name="plaats" id="" placeholder="Uw waarden" value={props.form.stap1.plaats} onChange={handleChange} />
+                            <Input maxLength={25} name="plaats" id="" placeholder="Uw waarden" value={props.form.stap1.plaats} onChange={handleChange} />
                         </div>
                     </div>
                     <div className="col-span-4">
@@ -73,7 +73,7 @@ const Stap1 = (props: Props) => {
                             <Label className="" htmlFor="framework">
                                 Postcode
                             </Label>
-                            <Input name="postcode" id="" placeholder="Uw waarden" value={props.form.stap1.postcode} onChange={handleChange} />
+                            <Input maxLength={6} name="postcode" id="" placeholder="Uw waarden" value={props.form.stap1.postcode} onChange={handleChange} />
                         </div>
                     </div>
                 </div>
@@ -81,13 +81,13 @@ const Stap1 = (props: Props) => {
                     <Label className="" htmlFor="framework">
                         Telefoonnummer
                     </Label>
-                    <Input name="telefoonnummer" id="" placeholder="Uw waarden" value={props.form.stap1.telefoonnummer} onChange={handleChange} />
+                    <Input maxLength={10} name="telefoonnummer" id="" placeholder="Uw waarden" value={props.form.stap1.telefoonnummer} onChange={handleChange} />
                 </div>
                 <div className="flex flex-col space-y-1.5">
                     <Label className="" htmlFor="framework">
                         Emailadres
                     </Label>
-                    <Input name="email" id="" placeholder="Uw waarden" value={props.form.stap1.email} onChange={handleChange} />
+                    <Input maxLength={50} name="email" id="" placeholder="Uw waarden" value={props.form.stap1.email} onChange={handleChange} />
                 </div>
                 <div className="mb-1"></div>
             </div>

@@ -13,7 +13,7 @@ import Link from 'next/link';
 import 'swiper/css';
 import { useActionState, useEffect, useState } from 'react';
 import { Button } from './ui/button';
-import { FinalForm, Stap1Form, Stap1Validator } from '@/lib/definitions';
+import { FinalForm, Stap1Form, Stap1Validator, Stap2Validator } from '@/lib/definitions';
 import { ZodError, ZodIssue } from 'zod';
 
 export default () => {
@@ -24,7 +24,7 @@ export default () => {
   var [form, setForm] = useState<FinalForm>({ stap1: { bedrijf_naam: '', contactpersoon_naam: '', straatnaam: '', huisnummer: '', plaats: '', postcode: '', telefoonnummer: '', email: '' },
                                               stap2: { bouwjaar: undefined, oppervlakte: '', vw_systeem: '', verwarming: '', isolatie_type: '', cv_temp: '', ventilatie: '', glas_type: '', zp_aanwezig: ''}
                                               });
-  // var [errors, setErrors] = useState<ZodIssue[]>([]);
+  
 
   useEffect(() => {
 
@@ -44,23 +44,23 @@ export default () => {
       case 1:
         const validation = Stap1Validator(form);
         if (!validation.success) {
-          console.log('worng');
+          console.log('wrong');
           // setErrors(errorss);
           return true; // Disable the element if validation fails
         } else {
           return false; // Enable the element if validation passes
         }
-        case 1:
-        const validation2 = Stap1Validator(form);
+        case 2:
+        const validation2 = Stap2Validator(form);
         if (!validation2.success) {
-          console.log('worng');
-          return true; // Disable the element if validation fails
+          console.log('wrong');
+          return false; // Disable the element if validation fails
         } else {
           return false; // Enable the element if validation passes
         }
   
       default:
-        return true; // Disable by default for other cases
+        return false; // Disable by default for other cases
     }
   };
   return (

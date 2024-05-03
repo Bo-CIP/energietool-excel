@@ -31,14 +31,16 @@ export type Stap2Form = {
 
 }
 
+
+
 const FormDataStap1 = z.object({
     bedrijf_naam: z.string().min(5).max(50),
     contactpersoon_naam: z.string().min(1).max(50),
     straatnaam: z.string().min(5).max(50),
-    huisnummer: z.string().min(5).max(50),
+    huisnummer: z.string().min(1).max(10),
     plaats: z.string().min(5).max(50),
-    postcode: z.string().min(5).max(18),
-    telefoonnummer: z.string().refine(validator.isMobilePhone, "enter cor4rect"),
+    postcode: z.string().regex(/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i),          
+    telefoonnummer: z.string().refine(validator.isMobilePhone),
     email: z.string().email()
   });
 
@@ -49,11 +51,10 @@ const FormDataStap1 = z.object({
     verwarming: z.string().min(1).max(18),
     isolatie_type: z.string().min(1).max(50),
     cv_temp: z.number().min(1).max(18),
-    ventilatie: z.string().refine(validator.isMobilePhone, "enter cor4rect"),
+    ventilatie: z.string().min(1).max(50),
     glas_type: z.string().email(),
     zp_aanwezig: z.string().min(10).max(10)
 });
-
  
 
 export function Stap1Validator(form: FinalForm) {
