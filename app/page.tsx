@@ -16,7 +16,6 @@ const fetchDataFromLaravel = async () => {
 
 export default function MyPage() {
 
-    fetchDataFromLaravel();
 
     return (
         <div>
