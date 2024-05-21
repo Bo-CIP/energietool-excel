@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 // import function to register Swiper custom elements
 import { register } from 'swiper/element/bundle';
+import { Toaster } from '@/components/ui/toaster';
 // register Swiper custom elements
 register();
 
@@ -25,7 +26,9 @@ export default function RootLayout({
       <head>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>{children}
+      <Toaster />
+      </body>
       
     
     </html>

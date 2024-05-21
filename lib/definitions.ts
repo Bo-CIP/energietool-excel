@@ -4,11 +4,13 @@ import validator from "validator";
 export type FinalForm = {
     stap1: Stap1Form
     stap2: Stap2Form
+    stap3: Stap3Form
+    stap4: Stap4Form
 }
 
 export type Stap1Form = {
     bedrijf_naam: string;
-    contactpersoon_naam: string;
+    contact_persoon: string;
     straatnaam: string;
     huisnummer: string;
     plaats: string;
@@ -29,6 +31,27 @@ export type Stap2Form = {
     glas_type: string;
     zp_aanwezig: string;
 
+}
+
+export type Stap3Form = {
+    elek_aantal_kwh: number | undefined;
+    elek_kale_kwh: number | undefined;
+    gas_aantal_kwh: number | undefined;
+    gas_kale_kwh: number | undefined;
+    aantal_gezinsleden: number | undefined;
+    lager_gasverbruik: number | undefined;
+    oppervlak_woning: string;
+    gasverbr_correctie: string;
+    km_met_elek_auto: string;
+}
+
+export type Stap4Form = {
+    zp_teruglevering: string;
+    kwh_netto_levering: string;
+    kwh_vergoeding: string;
+    zp_nodig: string;
+    extra_zp_boven: string;
+    aansluitvermogen_amp: string;
 }
 
 
@@ -52,7 +75,7 @@ const FormDataStap1 = z.object({
     isolatie_type: z.string().min(1).max(50),
     cv_temp: z.number().min(1).max(18),
     ventilatie: z.string().min(1).max(50),
-    glas_type: z.string().email(),
+    glas_type: z.string().min(1).max(50),
     zp_aanwezig: z.string().min(10).max(10)
 });
  

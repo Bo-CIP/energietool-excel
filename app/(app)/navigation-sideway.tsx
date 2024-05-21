@@ -168,7 +168,7 @@ return (
               <DropdownMenuItem>Instellingen</DropdownMenuItem>
               <DropdownMenuItem>Contact</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={logout}>Log uit</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         

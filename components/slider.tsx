@@ -13,7 +13,7 @@ import Link from 'next/link';
 import 'swiper/css';
 import { useActionState, useEffect, useState } from 'react';
 import { Button } from './ui/button';
-import { FinalForm, Stap1Form, Stap1Validator, Stap2Validator } from '@/lib/definitions';
+import { FinalForm, Stap1Form, Stap2Form, Stap3Form, Stap4Form, Stap1Validator, Stap2Validator } from '@/lib/definitions';
 import { ZodError, ZodIssue } from 'zod';
 
 export default () => {
@@ -21,9 +21,7 @@ export default () => {
   var [currentprogressvalue, setProgressValue] = useState(25);
   const [my_swiper, setMySwiper] = useState<SwiperClass>();
   var [currentindexvalue, setCurrentIndexValue] = useState(1);
-  var [form, setForm] = useState<FinalForm>({ stap1: { bedrijf_naam: '', contactpersoon_naam: '', straatnaam: '', huisnummer: '', plaats: '', postcode: '', telefoonnummer: '', email: '' },
-                                              stap2: { bouwjaar: undefined, oppervlakte: '', vw_systeem: '', verwarming: '', isolatie_type: '', cv_temp: '', ventilatie: '', glas_type: '', zp_aanwezig: ''}
-                                              });
+  
   
 
   useEffect(() => {
@@ -38,31 +36,6 @@ export default () => {
       return <ArrowRight />;
     }
   }
-
-  const disabled = (): boolean => {
-    switch (currentindexvalue) {
-      case 1:
-        const validation = Stap1Validator(form);
-        if (!validation.success) {
-          console.log('wrong');
-          // setErrors(errorss);
-          return true; // Disable the element if validation fails
-        } else {
-          return false; // Enable the element if validation passes
-        }
-        case 2:
-        const validation2 = Stap2Validator(form);
-        if (!validation2.success) {
-          console.log('wrong');
-          return false; // Disable the element if validation fails
-        } else {
-          return false; // Enable the element if validation passes
-        }
-  
-      default:
-        return false; // Disable by default for other cases
-    }
-  };
   return (
 
     <>
@@ -84,7 +57,7 @@ export default () => {
           setCurrentIndexValue((index.activeIndex + 1));
         }}
       >
-        <SwiperSlide><Stap1 form={form} setValue={setForm} /></SwiperSlide>
+        <SwiperSlide><Stap1  /></SwiperSlide>
         <SwiperSlide><Stap2 /></SwiperSlide>
         <SwiperSlide><Stap3 /></SwiperSlide>
         <SwiperSlide><Stap4 /></SwiperSlide>
@@ -98,7 +71,7 @@ export default () => {
         <Button disabled={currentindexvalue == 1} className="" onClick={() => my_swiper!.slidePrev()}>
           <ArrowLeft />
         </Button>
-        <Button disabled={disabled()} className="" onClick={() => my_swiper!.slideNext()}>
+        <Button className="" onClick={() => my_swiper!.slideNext()}>
           {getButtonValue()}
         </Button>
       </div>

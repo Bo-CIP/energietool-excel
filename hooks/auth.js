@@ -2,6 +2,9 @@ import useSWR from 'swr'
 import axios from '@/lib/axios'
 import { useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
+import { toast } from '@/components/ui/use-toast'
+import { ToastAction } from '@/components/ui/toast'
+
 
 export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     const router = useRouter()
@@ -14,7 +17,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
             .catch(error => {
                 if (error.response.status !== 409) throw error
 
-                router.push('/verify-email')
+                // router.push('/verify-email')
             }),
     )
 
@@ -29,8 +32,31 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
             .post('/register', props)
             .then(() => mutate())
             .catch(error => {
-                if (error.response.status !== 422) throw error
+                if (error.response.status == 422) {
+                    toast({
+                        title: "Er is een fout opgetreden",
+                        description: "Dit email is al in gebruik, voer a.u.b een ander email adres in",
+                      })
+                }
+                setErrors(error.response.data.errors)
+            })
+    }
 
+    const pand = async ({ setErrors, ...props }) => {
+        await csrf()
+
+        setErrors([])
+
+        axios
+            .post('/pand', props)
+            .then(() => mutate())
+            .catch(error => {
+                if (error.response.status == 422) {
+                    toast({
+                        title: "Er is een fout opgetreden",
+                        description: "uw verzoek kon niet worden doorgezet",
+                      })
+                }
                 setErrors(error.response.data.errors)
             })
     }
@@ -45,7 +71,12 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
             .post('/login', props)
             .then(() => mutate())
             .catch(error => {
-                if (error.response.status !== 422) throw error
+                if (error.response.status == 422) {
+                    toast({
+                        title: "Er is een fout opgetreden",
+                        description: "U heeft niet de juiste gegevens ingevoerd, probeer het nogmaals",
+                      })
+                }
 
                 setErrors(error.response.data.errors)
             })
@@ -66,6 +97,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
                 setErrors(error.response.data.errors)
             })
     }
+    
 
     const resetPassword = async ({ setErrors, setStatus, ...props }) => {
         await csrf()
@@ -84,6 +116,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
                 setErrors(error.response.data.errors)
             })
     }
+
 
     const resendEmailVerification = ({ setStatus }) => {
         axios
@@ -113,6 +146,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     return {
         user,
         register,
+        pand,
         login,
         forgotPassword,
         resetPassword,
