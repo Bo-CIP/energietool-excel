@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import {
@@ -14,131 +14,99 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { FinalForm, Stap2Form } from "@/lib/definitions";
+import { FinalForm } from "@/lib/definitions";
 import { useAuth } from "@/hooks/auth";
 import { Button } from "../ui/button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useToast } from "../ui/use-toast";
 
-const Stap2: React.FC = () => {
-  const { pand } = useAuth({
+interface Props {
+  value: FinalForm;
+  setValue: Dispatch<SetStateAction<FinalForm>>;
+}
+
+const Stap2: React.FC<Props> = (props) => {
+  const { berekening } = useAuth({
     middleware: "guest",
     redirectIfAuthenticated: "/dashboard",
   });
 
-  const [bouwjaar, setBouwjaar] = useState<string>("");
-  const [oppervlakte, setOppervlakte] = useState<string>("");
-  const [vw_systeem, setVWSysteem] = useState<string>("");
-  const [verwarming, setVerwarming] = useState<string>("");
-  const [isolatie_type, setIsolatie] = useState<string>("");
-  const [cv_temp, setCVTemp] = useState<string>("");
-  const [ventilatie, setVentilatie] = useState<string>("");
-  const [glas_type, setGlasType] = useState<string>("");
-  const [zp_aanwezig, setZPAanwezig] = useState<string>("");
-  const [errors, setErrors] = useState<{
-    bouwjaar: number[];
-    oppervlakte: number[];
-    vw_systeem: string[];
-    verwarming: string[];
-    isolatie_type: string[];
-    cv_temp: string[];
-    ventilatie: string[];
-    glas_type: string[];
-    zp_aanwezig: string[];
-  }>({
-    bouwjaar: [],
-    oppervlakte: [],
-    vw_systeem: [],
-    verwarming: [],
-    isolatie_type: [],
-    cv_temp: [],
-    ventilatie: [],
-    glas_type: [],
-    zp_aanwezig: [],
-  });
+  const handleSelectChange = (name: string, value: string) => {
+    // console.log("n"+name);
+    // console.log("v"+value);
+    props.setValue((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
 
-  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    pand({
-      bouwjaar,
-      oppervlakte,
-      vw_systeem,
-      verwarming,
-      isolatie_type,
-      cv_temp,
-      ventilatie,
-      glas_type,
-      zp_aanwezig,
-      setErrors,
-    });
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    console.log("n" + name);
+    console.log("v" + value);
+    props.setValue((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
 
   return (
     <>
       <div className="flex justify-center mx-auto mt-6">
-        <form onSubmit={submitForm} className="min-w-[500px] max-w-[500px]">
+        <form className="min-w-[500px] max-w-[500px]">
           <div className="grid w-full items-center gap-4">
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-6">
-              <div className="flex flex-col space-y-1.5">
-              <Label className="" htmlFor="name">
-                Bouwjaar
-              </Label>
-              <Input
-                maxLength={30}
-                name="bouwjaar"
-                id=""
-                placeholder="Uw waarden"
-                value={bouwjaar}
-                onChange={(event) => setBouwjaar(event.target.value)}
-              />
-            </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label className="" htmlFor="name">
+                    Bouwjaar
+                  </Label>
+                  <Input
+                    maxLength={30}
+                    name="bouwjaar"
+                    placeholder="Uw waarden"
+                    value={props.value.bouwjaar}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
               <div className="col-span-6">
-              <div className="flex flex-col space-y-1.5">
-              <Label className="" htmlFor="name">
-                Naam bedrijf
-              </Label>
-              <Input
-                maxLength={30}
-                name="oppervlakte"
-                id=""
-                placeholder="Uw waarden"
-                value={oppervlakte}
-                onChange={(event) => setOppervlakte(event.target.value)}
-              />
-            </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label className="" htmlFor="name">
+                    Oppervlakte
+                  </Label>
+                  <Input
+                    maxLength={30}
+                    name="woon_oppervlak"
+                    id=""
+                    placeholder="Uw waarden"
+                    value={props.value.woon_oppervlak}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
             </div>
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-6">
                 <div className="flex flex-col space-y-1.5">
                   <Label className="" htmlFor="framework">
-                    Verwarmings systeem
+                    Glas beneden
                   </Label>
                   <Select
-                    value={vw_systeem}
-                    onChange={(event: { target: { value: React.SetStateAction<string>; }; }) => setVWSysteem(event.target.value)}
+                    name="glas_type"
+                    value={props.value.glas_type}
+                    onValueChange={(v: string) =>
+                      handleSelectChange("glas_type", v)
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Kies uit..." />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Gas">Gas</SelectItem>
-                      <SelectItem value="Pelletkachel">Pelletkachel</SelectItem>
-                      <SelectItem value="Luchtverwarming">
-                        Luchtverwarming
-                      </SelectItem>
-                      <SelectItem value="Warmtepomp">Warmtepomp</SelectItem>
-                      <SelectItem value="Infrarood">Infrarood</SelectItem>
-                      <SelectItem value="Hybride WP">Hybride WP</SelectItem>
-                      <SelectItem value="Luchtwater WP">
-                        Luchtwater WP
-                      </SelectItem>
-                      <SelectItem value="Airco">Airco</SelectItem>
-                      <SelectItem value="Grondwater WP">
-                        Grondwater WP
-                      </SelectItem>
-                      <SelectItem value="Anders">Anders</SelectItem>
+                      <SelectItem value="Triple">Triple</SelectItem>
+                      <SelectItem value="HR++">HR++</SelectItem>
+                      <SelectItem value="Dubbel glas">Dubbel glas</SelectItem>
+                      <SelectItem value="Enkel Glas">Enkel Glas</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -146,36 +114,64 @@ const Stap2: React.FC = () => {
               <div className="col-span-6">
                 <div className="flex flex-col space-y-1.5">
                   <Label className="" htmlFor="framework">
-                    Verwarming
+                    Zonnepanelen al aanwezig
                   </Label>
-                  <Select
-                    value={verwarming}
-                    onChange={(event: { target: { value: React.SetStateAction<string>; }; }) => setVerwarming(event.target.value)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Kies uit..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Vloer">Vloer</SelectItem>
-                      <SelectItem value="Radiatoren">Radiatoren</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Input
+                    maxLength={30}
+                    name="zp_aanwezig"
+                    id=""
+                    placeholder="Uw waarden"
+                    value={props.value.zp_aanwezig}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
-            </div>
-
-            <div className="flex flex-col space-y-1.5">
-              <Label className="" htmlFor="framework">
-                Is er spouw en/of vloer isolatie
-              </Label>
-              <Input
-                maxLength={30}
-                name="isolatie_type"
-                id=""
-                placeholder="Uw waarden"
-                value={isolatie_type}
-                onChange={(event) => setOppervlakte(event.target.value)}
-              />
+              <div className="col-span-6">
+                <div className="flex flex-col space-y-1.5">
+                  <Label className="" htmlFor="framework">
+                    Is er vloer/spouw isolatie
+                  </Label>
+                  <RadioGroup
+                    name="isolatie"
+                    defaultValue={props.value.isolatie}
+                    onValueChange={(v: string) =>
+                      handleSelectChange("isolatie", v)
+                    }
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Ja" id="r1" />
+                      <Label htmlFor="r1">Ja</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Nee" id="r2" />
+                      <Label htmlFor="r2">Nee</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+              </div>
+              <div className="col-span-6">
+                <div className="flex flex-col space-y-1.5">
+                  <Label className="" htmlFor="framework">
+                    Is er vloer of radiator verwarming
+                  </Label>
+                  <RadioGroup
+                    name="vw_type"
+                    defaultValue={props.value.vw_type}
+                    onValueChange={(v: string) =>
+                      handleSelectChange("vw_type", v)
+                    }
+                    >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Vloer" id="r1" />
+                      <Label htmlFor="r1">Vloer</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Radiator" id="r2" />
+                      <Label htmlFor="r2">Radiator</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+              </div>
             </div>
 
             <div className="grid grid-cols-12 gap-4">
@@ -198,8 +194,11 @@ const Stap2: React.FC = () => {
                   </Label>
 
                   <Select
-                    value={cv_temp}
-                    onChange={(event: { target: { value: React.SetStateAction<string>; }; }) => setCVTemp(event.target.value)}
+                    name="cv_temp"
+                    value={props.value.cv_temp}
+                    onValueChange={(v: string) =>
+                      handleSelectChange("cv_temp", v)
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Kies uit..." />
@@ -219,64 +218,63 @@ const Stap2: React.FC = () => {
                     Ventilatie
                   </Label>
                   <Select
-                    value={ventilatie}
-                    onChange={(event: { target: { value: React.SetStateAction<string>; }; }) => setVentilatie(event.target.value)}
+                    name="vent_type"
+                    value={props.value.vent_type}
+                    onValueChange={(v: string) =>
+                      handleSelectChange("vent_type", v)
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Kies uit..." />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="centraal">WTW centraal</SelectItem>
-                      <SelectItem value="lokaal">WTW lokaal</SelectItem>
-                      <SelectItem value="roosters">Roosters</SelectItem>
-                      <SelectItem value="kieren">Kieren</SelectItem>
+                      <SelectItem value="WTW centraal">WTW centraal</SelectItem>
+                      <SelectItem value="WTW lokaal">WTW lokaal</SelectItem>
+                      <SelectItem value="Roosters">Roosters</SelectItem>
+                      <SelectItem value="Kieren">Kieren</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="col-span-12">
+                <div className="flex flex-col space-y-1.5">
+                  <Label className="" htmlFor="framework">
+                    Verwarmings systeem
+                  </Label>
+                  <Select
+                    name="vw_systeem"
+                    value={props.value.vw_systeem}
+                    onValueChange={(v: string) =>
+                      handleSelectChange("vw_systeem", v)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Kies uit..."></SelectValue>
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Gas">Gas</SelectItem>
+                      <SelectItem value="Pelletkachel">Pelletkachel</SelectItem>
+                      <SelectItem value="Luchtverwarming">
+                        Luchtverwarming
+                      </SelectItem>
+                      <SelectItem value="Warmtepomp">Warmtepomp</SelectItem>
+                      <SelectItem value="Infrarood">Infrarood</SelectItem>
+                      <SelectItem value="Hybride WP">Hybride WP</SelectItem>
+                      <SelectItem value="Luchtwater WP">
+                        Luchtwater WP
+                      </SelectItem>
+                      <SelectItem value="Airco">Airco</SelectItem>
+                      <SelectItem value="Grondwater WP">
+                        Grondwater WP
+                      </SelectItem>
+                      <SelectItem value="Anders">Anders</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-12 gap-4">
-              <div className="col-span-6">
-                <div className="flex flex-col space-y-1.5">
-                  <Label className="" htmlFor="framework">
-                    Glas beneden
-                  </Label>
-                  <Select
-                    value={glas_type}
-                    onChange={(event: { target: { value: React.SetStateAction<string>; }; }) => setGlasType(event.target.value)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Kies uit..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="triple">Triple</SelectItem>
-                      <SelectItem value="hr">HR++</SelectItem>
-                      <SelectItem value="dubbel-glas">Dubbel glas</SelectItem>
-                      <SelectItem value="enkel-glas">Enkel Glas</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              <div className="col-span-6">
-                <div className="flex flex-col space-y-1.5">
-                  <Label className="" htmlFor="framework">
-                    Zonnepanelen al aanwezig
-                  </Label>
-                  <Input
-                    maxLength={30}
-                    name="bedrijf_naam"
-                    id=""
-                    placeholder="Uw waarden"
-                    value={zp_aanwezig}
-                    onChange={(event: { target: { value: React.SetStateAction<string>; }; }) => setZPAanwezig(event.target.value)}
-                  />
-                </div>
-              </div>
-            </div>
             <div className="mb-1"></div>
           </div>
-          <Button type="submit">Test</Button>
         </form>
       </div>
     </>

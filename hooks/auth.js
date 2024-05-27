@@ -61,6 +61,25 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
             })
     }
 
+    const berekening = async ({ setErrors, ...props }) => {
+        await csrf()
+
+        setErrors([])
+
+        axios
+            .post('/berekening', props)
+            .then(() => mutate())
+            .catch(error => {
+                if (error.response.status == 422) {
+                    toast({
+                        title: "Er is een fout opgetreden",
+                        description: "uw verzoek kon niet worden doorgezet",
+                      })
+                }
+                setErrors(error.response.data.errors)
+            })
+    }
+
     const login = async ({ setErrors, setStatus, ...props }) => {
         await csrf()
 
@@ -147,6 +166,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
         user,
         register,
         pand,
+        berekening,
         login,
         forgotPassword,
         resetPassword,

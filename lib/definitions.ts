@@ -2,13 +2,6 @@ import {z} from "zod";
 import validator from "validator";
 
 export type FinalForm = {
-    stap1: Stap1Form
-    stap2: Stap2Form
-    stap3: Stap3Form
-    stap4: Stap4Form
-}
-
-export type Stap1Form = {
     bedrijf_naam: string;
     contact_persoon: string;
     straatnaam: string;
@@ -17,35 +10,24 @@ export type Stap1Form = {
     postcode: string; 
     telefoonnummer: string;
     email: string;
-
-}
-
-export type Stap2Form = {
-    bouwjaar: number | undefined;
+    bouwjaar: string;
     oppervlakte: string;
     vw_systeem: string;
-    verwarming: string;
-    isolatie_type: string;
+    vw_type: string;
+    isolatie: string;
     cv_temp: string; 
-    ventilatie: string;
+    vent_type: string;
     glas_type: string;
     zp_aanwezig: string;
-
-}
-
-export type Stap3Form = {
-    elek_aantal_kwh: number | undefined;
-    elek_kale_kwh: number | undefined;
-    gas_aantal_kwh: number | undefined;
-    gas_kale_kwh: number | undefined;
-    aantal_gezinsleden: number | undefined;
-    lager_gasverbruik: number | undefined;
-    oppervlak_woning: string;
+    elek_aantal_kwh: string;
+    elek_kale_kwh: string;
+    gas_aantal_kwh: string;
+    gas_kale_kwh: string;
+    aantal_gezinsleden: string;
+    lager_gasverbruik: string;
+    woon_oppervlak: string;
     gasverbr_correctie: string;
     km_met_elek_auto: string;
-}
-
-export type Stap4Form = {
     zp_teruglevering: string;
     kwh_netto_levering: string;
     kwh_vergoeding: string;
@@ -56,38 +38,38 @@ export type Stap4Form = {
 
 
 
-const FormDataStap1 = z.object({
-    bedrijf_naam: z.string().min(5).max(50),
-    contactpersoon_naam: z.string().min(1).max(50),
-    straatnaam: z.string().min(5).max(50),
-    huisnummer: z.string().min(1).max(10),
-    plaats: z.string().min(5).max(50),
-    postcode: z.string().regex(/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i),          
-    telefoonnummer: z.string().refine(validator.isMobilePhone),
-    email: z.string().email()
-  });
 
-  const FormDataStap2 = z.object({
-    bouwjaar: z.number().int().min(4).max(4),
-    oppervlakte: z.string().min(1).max(18),
-    vw_systeem: z.string().min(1).max(18),
-    verwarming: z.string().min(1).max(18),
-    isolatie_type: z.string().min(1).max(50),
-    cv_temp: z.number().min(1).max(18),
-    ventilatie: z.string().min(1).max(50),
-    glas_type: z.string().min(1).max(50),
-    zp_aanwezig: z.string().min(10).max(10)
+const formSchema = z.object({
+  bedrijf_naam: z.string(),
+  contact_persoon: z.string(),
+  straatnaam: z.string(),
+  huisnummer: z.string(),
+  plaats: z.string(),
+  postcode: z.string(),
+  telefoonnummer: z.string(),
+  email: z.string().email(), // Controleert of het een geldig e-mailadres is
+  bouwjaar: z.string(),
+  oppervlakte: z.string(),
+  vw_systeem: z.string(),
+  vw_type: z.string(),
+  isolatie: z.string(),
+  cv_temp: z.string(),
+  vent_type: z.string(),
+  glas_type: z.string(),
+  zp_aanwezig: z.string(),
+  elek_aantal_kwh: z.string(),
+  elek_kale_kwh: z.string(),
+  gas_aantal_kwh: z.string(),
+  gas_kale_kwh: z.string(),
+  aantal_gezinsleden: z.string(),
+  lager_gasverbruik: z.string(),
+  woon_oppervlak: z.string(),
+  gasverbr_correctie: z.string(),
+  km_met_elek_auto: z.string(),
+  zp_teruglevering: z.string(),
+  kwh_netto_levering: z.string(),
+  kwh_vergoeding: z.string(),
+  zp_nodig: z.string(),
+  extra_zp_boven: z.string(),
+  aansluitvermogen_amp: z.string(),
 });
- 
-
-export function Stap1Validator(form: FinalForm) {
-    
-        const isValidData = FormDataStap1.safeParse(form.stap1);
-        return isValidData;
-};
-    
-export function Stap2Validator(form: FinalForm) {
-
-        const isValidData = FormDataStap2.safeParse(form.stap2);
-        return isValidData;
-}

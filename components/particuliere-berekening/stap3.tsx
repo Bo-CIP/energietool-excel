@@ -1,31 +1,39 @@
-import React, {Dispatch, SetStateAction} from "react";
+import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";
-import { FinalForm, Stap3Form } from "@/lib/definitions";
+import { FinalForm } from "@/lib/definitions";
+import { useAuth } from "@/hooks/auth";
+import { Button } from "../ui/button";
+import { useStap3Context } from "@/lib/stap3Context";
+import { useToast } from "../ui/use-toast";
+
 
 interface Props {
-  form: FinalForm;
-  setValue: Dispatch<SetStateAction<FinalForm>>;
+  value: FinalForm
+  setValue: Dispatch<SetStateAction<FinalForm>>
 }
 
+const Stap3: React.FC<Props> = (props) => {
+  const { berekening } = useAuth({
+    middleware: "guest",
+    redirectIfAuthenticated: "/dashboard",
+  });
 
-const Stap3 = (props: Props) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
-    // Update the form state with the new value
-    props.setValue((prevForm) => ({
-      ...prevForm,
-      stap3: {
-        ...prevForm.stap3,
-        [name]: value,
-      },
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = event.target;
+    props.setValue((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
     }));
   };
 
-
-
-  return (
+              
+             
+  return (   
     <>
       <div className="flex justify-center mt-6">
         <form className="min-w-[500px] max-w-[500px]">
@@ -39,8 +47,9 @@ const Stap3 = (props: Props) => {
                     name="elek_aantal_kwh"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.form.stap3.elek_aantal_kwh}
+                    value={props.value.elek_aantal_kwh}
                     onChange={handleChange}
+                   
                   />
                 </div>
               </div>
@@ -51,7 +60,7 @@ const Stap3 = (props: Props) => {
                     name="elek_kale_kwh"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.form.stap3.elek_kale_kwh}
+                    value={props.value.elek_kale_kwh}
                     onChange={handleChange}
                   />
                 </div>
@@ -66,7 +75,7 @@ const Stap3 = (props: Props) => {
                     name="gas_aantal_kwh"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.form.stap3.gas_aantal_kwh}
+                    value={props.value.gas_aantal_kwh}
                     onChange={handleChange}
                   />
                 </div>
@@ -75,10 +84,10 @@ const Stap3 = (props: Props) => {
                 <div className="flex flex-col space-y-1.5">
                 <Input
                     maxLength={30}
-                    name="gas_aantal_kwh"
+                    name="gas_kale_kwh"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.form.stap3.gas_kale_kwh}
+                    value={props.value.gas_kale_kwh}
                     onChange={handleChange}
                   />
                 </div>
@@ -95,7 +104,7 @@ const Stap3 = (props: Props) => {
                     name="aantal_gezinsleden"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.form.stap3.aantal_gezinsleden}
+                    value={props.value.aantal_gezinsleden}
                     onChange={handleChange}
                   />
                 </div>
@@ -110,7 +119,7 @@ const Stap3 = (props: Props) => {
                     name="lager_gasverbruik"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.form.stap3.lager_gasverbruik}
+                    value={props.value.lager_gasverbruik}
                     onChange={handleChange}
                   />
                 </div>
@@ -124,10 +133,10 @@ const Stap3 = (props: Props) => {
                   </Label>
                   <Input
                     maxLength={30}
-                    name="oppervlakte"
+                    name="woon_oppervlak"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.form.stap3.oppervlak_woning}
+                    value={props.value.woon_oppervlak}
                     onChange={handleChange}
                   />
                 </div>
@@ -139,10 +148,10 @@ const Stap3 = (props: Props) => {
                   </Label>
                   <Input
                     maxLength={30}
-                    name="gasverbruik_correctie"
+                    name="gasverbr_correctie"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.form.stap3.gasverbr_correctie}
+                    value={props.value.gasverbr_correctie}
                     onChange={handleChange}
                   />
                 </div>
@@ -157,11 +166,12 @@ const Stap3 = (props: Props) => {
                     name="km_met_elek_auto"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.form.stap3.km_met_elek_auto}
+                    value={props.value.km_met_elek_auto}
                     onChange={handleChange}
                   />
             </div>
           </div>
+          <Button type="submit">Test</Button>
         </form>
       </div>
     </>

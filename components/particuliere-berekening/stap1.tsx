@@ -1,66 +1,34 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { FinalForm, Stap1Form } from "@/lib/definitions";
+import { FinalForm } from "@/lib/definitions";
 import { useAuth } from "@/hooks/auth";
 import { Button } from "../ui/button";
+import { useToast } from "../ui/use-toast";
 
+interface Props {
+  value: FinalForm;
+  setValue: Dispatch<SetStateAction<FinalForm>>;
+}
 
-const Stap1: React.FC = () => {
-  const { register } = useAuth({
+const Stap1: React.FC<Props> = (props) => {
+  const { berekening } = useAuth({
     middleware: "guest",
     redirectIfAuthenticated: "/dashboard",
   });
 
-  const [bedrijf_naam, setBedrijfNaam] = useState<string>("");
-  const [contact_persoon, setContactPersoon] = useState<string>("");
-  const [straatnaam, setStraat] = useState<string>("");
-  const [huisnummer, setHuisnummer] = useState<string>("");
-  const [plaats, setPlaats] = useState<string>("");
-  const [postcode, setPostcode] = useState<string>("");
-  const [telefoonnummer, setTelefoonnummer] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [errors, setErrors] = useState<{
-    bedrijf_naam: string[];
-    contact_persoon: string[];
-    straatnaam: string[];
-    huisnummer: string[];
-    plaats: string[];
-    postcode: string[];
-    telefoonnummer: string[];
-    email: string[];
-}>({
-  bedrijf_naam: [],
-  contact_persoon: [],
-  straatnaam: [],
-  huisnummer: [],
-  plaats: [],
-  postcode: [],
-  telefoonnummer: [],
-  email: []
-});
-
-const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-
-  register({
-      bedrijf_naam,
-      contact_persoon,
-      straatnaam,
-      huisnummer,
-      plaats,
-      postcode, 
-      telefoonnummer,
-      email,
-      setErrors,
-  });
-};
-
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    props.setValue((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
 
   return (
     <>
       <div className="flex justify-center mx-auto mt-6">
-        <form onSubmit={submitForm} className="max-w-[500px]">
+        <form className="max-w-[500px]">
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label className="" htmlFor="name">
@@ -71,8 +39,8 @@ const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
                 name="bedrijf_naam"
                 id=""
                 placeholder="Uw waarden"
-                value={bedrijf_naam}
-                onChange={(event) => setBedrijfNaam(event.target.value)}
+                value={props.value.bedrijf_naam}
+                onChange={handleChange}
               />
             </div>
             <div className="flex flex-col space-y-1.5">
@@ -81,11 +49,11 @@ const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
               </Label>
               <Input
                 maxLength={40}
-                name="contactpersoon_naam"
+                name="contact_persoon"
                 id=""
                 placeholder="Uw waarden"
-                value={contact_persoon}
-                onChange={(event) => setContactPersoon(event.target.value)}
+                value={props.value.contact_persoon}
+                onChange={handleChange}
               />
             </div>
             <div className="grid grid-cols-12 gap-4">
@@ -99,8 +67,8 @@ const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
                     name="straatnaam"
                     id=""
                     placeholder="Uw waarden"
-                    value={straatnaam}
-                    onChange={(event) => setStraat(event.target.value)}
+                    value={props.value.straatnaam}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -114,8 +82,8 @@ const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
                     name="huisnummer"
                     id=""
                     placeholder="Uw waarden"
-                    value={huisnummer}
-                    onChange={(event) => setHuisnummer(event.target.value)}
+                    value={props.value.huisnummer}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -131,8 +99,8 @@ const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
                     name="plaats"
                     id=""
                     placeholder="Uw waarden"
-                    value={plaats}
-                    onChange={(event) => setPlaats(event.target.value)}
+                    value={props.value.plaats}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -146,8 +114,8 @@ const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
                     name="postcode"
                     id=""
                     placeholder="Uw waarden"
-                    value={postcode}
-                    onChange={(event) => setPostcode(event.target.value)}
+                    value={props.value.postcode}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -161,8 +129,8 @@ const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
                 name="telefoonnummer"
                 id=""
                 placeholder="Uw waarden"
-                value={telefoonnummer}
-                onChange={(event) => setTelefoonnummer(event.target.value)}
+                value={props.value.telefoonnummer}
+                onChange={handleChange}
               />
             </div>
             <div className="flex flex-col space-y-1.5">
@@ -174,8 +142,8 @@ const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
                 name="email"
                 id=""
                 placeholder="Uw waarden"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                value={props.value.email}
+                onChange={handleChange}
               />
             </div>
             <div className="mb-1"></div>

@@ -1,31 +1,40 @@
-import React, {Dispatch, SetStateAction} from "react";
+import React, {Dispatch, SetStateAction, useState} from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";
 import { Terminal } from "lucide-react";
 import { CircleAlert } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { FinalForm, Stap4Form } from "@/lib/definitions";
+import { FinalForm } from "@/lib/definitions";
+import { useAuth } from "@/hooks/auth";
+import { Button } from "../ui/button";
+import { useToast } from "../ui/use-toast";
 
 
 interface Props {
-  form: FinalForm;
-  setValue: Dispatch<SetStateAction<FinalForm>>;
+  value: FinalForm
+  setValue: Dispatch<SetStateAction<FinalForm>>
 }
 
+const Stap4: React.FC<Props> = (props) => {
+  const { berekening } = useAuth({
+    middleware: "guest",
+    redirectIfAuthenticated: "/dashboard",
+  });
 
-const Stap4 = (props: Props) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
-    // Update the form state with the new value
-    props.setValue((prevForm) => ({
-      ...prevForm,
-      stap4: {
-        ...prevForm.stap4,
-        [name]: value,
-      },
+  
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = event.target;
+    props.setValue((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
     }));
   };
+
+
   return (
     <>
       <div className="flex justify-center mt-6">
@@ -42,7 +51,7 @@ const Stap4 = (props: Props) => {
                     name="zp_teruglevering"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.form.stap4.zp_teruglevering}
+                    value={props.value.zp_teruglevering}
                     onChange={handleChange}
                   />
                 </div>
@@ -57,7 +66,7 @@ const Stap4 = (props: Props) => {
                     name="kwh_netto_levering"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.form.stap4.kwh_netto_levering}
+                    value={props.value.kwh_netto_levering}
                     onChange={handleChange}
                   />
                 </div>
@@ -74,7 +83,7 @@ const Stap4 = (props: Props) => {
                     name="kwh_vergoeding"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.form.stap4.kwh_vergoeding}
+                    value={props.value.kwh_vergoeding}
                     onChange={handleChange}
                   />
                 </div>
@@ -91,7 +100,7 @@ const Stap4 = (props: Props) => {
                     name="zp_nodig"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.form.stap4.zp_nodig}
+                    value={props.value.zp_nodig}
                     onChange={handleChange}
                   />
                 </div>
@@ -108,7 +117,7 @@ const Stap4 = (props: Props) => {
                     name="extra_zp_boven"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.form.stap4.extra_zp_boven}
+                    value={props.value.extra_zp_boven}
                     onChange={handleChange}
                   />
                 </div>
@@ -123,7 +132,7 @@ const Stap4 = (props: Props) => {
                     name="aansluitvermogen_amp"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.form.stap4.aansluitvermogen_amp}
+                    value={props.value.aansluitvermogen_amp}
                     onChange={handleChange}
                   />
                 </div>
@@ -143,6 +152,7 @@ const Stap4 = (props: Props) => {
               </div>
             </div>
           </div>
+          <Button type="submit">Test</Button>
         </form>
       </div>
     </>
