@@ -31,19 +31,17 @@ const Stap2: React.FC<Props> = (props) => {
     redirectIfAuthenticated: "/dashboard",
   });
 
+  // Function to handle select changes and update the form state
   const handleSelectChange = (name: string, value: string) => {
-    // console.log("n"+name);
-    // console.log("v"+value);
     props.setValue((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
   };
 
+  // Function to handle input changes and update the form state
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    console.log("n" + name);
-    console.log("v" + value);
     props.setValue((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -55,7 +53,9 @@ const Stap2: React.FC<Props> = (props) => {
       <div className="flex justify-center mx-auto mt-6">
         <form className="min-w-[500px] max-w-[500px]">
           <div className="grid w-full items-center gap-4">
+             {/* Grid for form fields */}
             <div className="grid grid-cols-12 gap-4">
+              {/* Bouwjaar input field */}
               <div className="col-span-6">
                 <div className="flex flex-col space-y-1.5">
                   <Label className="" htmlFor="name">
@@ -70,6 +70,7 @@ const Stap2: React.FC<Props> = (props) => {
                   />
                 </div>
               </div>
+              {/* Oppervlakte input field */}
               <div className="col-span-6">
                 <div className="flex flex-col space-y-1.5">
                   <Label className="" htmlFor="name">
@@ -86,6 +87,7 @@ const Stap2: React.FC<Props> = (props) => {
                 </div>
               </div>
             </div>
+             {/* Select fields for glass type, presence of solar panels, insulation, and heating system */}
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-6">
                 <div className="flex flex-col space-y-1.5">
@@ -174,6 +176,7 @@ const Stap2: React.FC<Props> = (props) => {
               </div>
             </div>
 
+            {/* Additional select fields for heating system parameters */}
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-6">
                 <div className="flex flex-col space-y-1.5">

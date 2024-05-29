@@ -1,6 +1,7 @@
 import {z} from "zod";
 import validator from "validator";
 
+// De definitions voor de Array in slider.tsx binnen de formState
 export type FinalForm = {
     bedrijf_naam: string;
     contact_persoon: string;
@@ -34,11 +35,13 @@ export type FinalForm = {
     zp_nodig: string;
     extra_zp_boven: string;
     aansluitvermogen_amp: string;
+    elek_stroom_gas_jr: string;
+    elek_totaal_jaar_mnd: string;
+    gas_stroom_gas_jr: string;
+    gas_totaal_jaar_mnd: string;
 }
 
-
-
-
+//De type validation van alle velden
 const formSchema = z.object({
   bedrijf_naam: z.string(),
   contact_persoon: z.string(),

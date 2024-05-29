@@ -58,6 +58,10 @@ export default () => {
     zp_nodig: "",
     extra_zp_boven: "",
     aansluitvermogen_amp: "",
+    elek_stroom_gas_jr: "",
+    elek_totaal_jaar_mnd: "",
+    gas_stroom_gas_jr: "",
+    gas_totaal_jaar_mnd: ""
   });
 
   const [errors, setErrors] = useState<{
@@ -93,6 +97,10 @@ export default () => {
     zp_nodig: string[];
     extra_zp_boven: string[];
     aansluitvermogen_amp: string[];
+    elek_stroom_gas_jr: string[];
+    elek_totaal_jaar_mnd: string[];
+    gas_stroom_gas_jr: string[];
+    gas_totaal_jaar_mnd: string[];
   }>({
     bedrijf_naam: [],
     contact_persoon: [],
@@ -126,6 +134,10 @@ export default () => {
     zp_nodig: [],
     extra_zp_boven: [],
     aansluitvermogen_amp: [],
+    elek_stroom_gas_jr: [],
+    elek_totaal_jaar_mnd: [],
+    gas_stroom_gas_jr: [],
+    gas_totaal_jaar_mnd: [],
   });
 
   useEffect(() => {}, [currentindexvalue]);

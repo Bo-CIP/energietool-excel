@@ -1,19 +1,15 @@
-import React, {Dispatch, SetStateAction, useState} from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { Separator } from "../ui/separator";
-import { Terminal } from "lucide-react";
 import { CircleAlert } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { FinalForm } from "@/lib/definitions";
 import { useAuth } from "@/hooks/auth";
 import { Button } from "../ui/button";
-import { useToast } from "../ui/use-toast";
-
 
 interface Props {
-  value: FinalForm
-  setValue: Dispatch<SetStateAction<FinalForm>>
+  value: FinalForm;
+  setValue: Dispatch<SetStateAction<FinalForm>>;
 }
 
 const Stap4: React.FC<Props> = (props) => {
@@ -22,11 +18,8 @@ const Stap4: React.FC<Props> = (props) => {
     redirectIfAuthenticated: "/dashboard",
   });
 
-  
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  // Function to handle input changes and update the form state
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     props.setValue((prevFormData) => ({
       ...prevFormData,
@@ -34,15 +27,15 @@ const Stap4: React.FC<Props> = (props) => {
     }));
   };
 
-
   return (
     <>
       <div className="flex justify-center mt-6">
         <form className="min-w-[500px] max-w-[500px]">
           <div className="grid w-full items-center gap-4">
+            {/* Section for solar panel data */}
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-12">
-                <div className="flex flex-col space-y-1.5 ">
+                <div className="flex flex-col space-y-1.5">
                   <Label className="" htmlFor="name">
                     Teruglever aantal van zonnepanelen in kWh
                   </Label>
@@ -59,19 +52,22 @@ const Stap4: React.FC<Props> = (props) => {
               <div className="col-span-12">
                 <div className="flex flex-col space-y-1.5">
                   <Label className="" htmlFor="name">
-                  Netto levering door energieleverancier kWh berekend
+                    Netto levering door energieleverancier kWh berekend
                   </Label>
                   <Input
                     maxLength={30}
-                    name="kwh_netto_levering"
+                    name="elek_aantal_kwh"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.value.kwh_netto_levering}
+                    value={props.value.elek_aantal_kwh}
                     onChange={handleChange}
+                    disabled={true}
                   />
                 </div>
               </div>
             </div>
+
+            {/* Section for compensation and needed panels */}
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-6">
                 <div className="flex flex-col space-y-1.5">
@@ -88,8 +84,6 @@ const Stap4: React.FC<Props> = (props) => {
                   />
                 </div>
               </div>
-              
-              
               <div className="col-span-6">
                 <div className="flex flex-col space-y-1.5">
                   <Label className="" htmlFor="name">
@@ -106,6 +100,8 @@ const Stap4: React.FC<Props> = (props) => {
                 </div>
               </div>
             </div>
+
+            {/* Section for additional panels and connection capacity */}
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-6">
                 <div className="flex flex-col space-y-1.5">
@@ -138,6 +134,8 @@ const Stap4: React.FC<Props> = (props) => {
                 </div>
               </div>
             </div>
+
+            {/* Alert section */}
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-12 mt-12">
                 <Alert>
@@ -152,7 +150,6 @@ const Stap4: React.FC<Props> = (props) => {
               </div>
             </div>
           </div>
-          <Button type="submit">Test</Button>
         </form>
       </div>
     </>

@@ -1,17 +1,13 @@
-import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { Separator } from "../ui/separator";
 import { FinalForm } from "@/lib/definitions";
 import { useAuth } from "@/hooks/auth";
 import { Button } from "../ui/button";
-import { useStap3Context } from "@/lib/stap3Context";
-import { useToast } from "../ui/use-toast";
-
 
 interface Props {
-  value: FinalForm
-  setValue: Dispatch<SetStateAction<FinalForm>>
+  value: FinalForm;
+  setValue: Dispatch<SetStateAction<FinalForm>>;
 }
 
 const Stap3: React.FC<Props> = (props) => {
@@ -20,10 +16,8 @@ const Stap3: React.FC<Props> = (props) => {
     redirectIfAuthenticated: "/dashboard",
   });
 
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  // Function to handle input changes and update the form state
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     props.setValue((prevFormData) => ({
       ...prevFormData,
@@ -31,31 +25,35 @@ const Stap3: React.FC<Props> = (props) => {
     }));
   };
 
-              
-             
-  return (   
+  const elekStroomGasJr= parseFloat(props.value.elek_stroom_gas_jr) || 0;
+  const gasStroomGasJr= parseFloat(props.value.gas_stroom_gas_jr) || 0;
+  const totalStroomGasJr = elekStroomGasJr + gasStroomGasJr;
+
+  return (
     <>
       <div className="flex justify-center mt-6">
         <form className="min-w-[500px] max-w-[500px]">
           <div className="grid w-full items-center gap-4">
+            {/* Section for electricity data */}
             <h6 className="text-md">Elektriciteit van energiemij</h6>
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-6">
-                <div className="flex flex-col space-y-1.5 ">
-                <Input
+                <div className="flex flex-col space-y-1.5">
+                  <Label>Aantal</Label>
+                  <Input
                     maxLength={30}
                     name="elek_aantal_kwh"
                     id=""
                     placeholder="Uw waarden"
                     value={props.value.elek_aantal_kwh}
                     onChange={handleChange}
-                   
                   />
                 </div>
               </div>
               <div className="col-span-6">
                 <div className="flex flex-col space-y-1.5">
-                <Input
+                  <Label>Kale kWh / m3</Label>
+                  <Input
                     maxLength={30}
                     name="elek_kale_kwh"
                     id=""
@@ -66,11 +64,45 @@ const Stap3: React.FC<Props> = (props) => {
                 </div>
               </div>
             </div>
+            <div className="grid grid-cols-12 gap-4 mb-2">
+              <div className="col-span-6">
+                <div className="flex flex-col space-y-1.5">
+                <Label>Stroom/gas jr</Label>
+                  <Input
+                    maxLength={30}
+                    name="elek_stroom_gas_jr"
+                    id=""
+                    placeholder="Uw waarden"
+                    value={props.value.elek_stroom_gas_jr}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="col-span-6">
+                <div className="flex flex-col space-y-1.5">
+                <Label>Totaal jaar/mnd</Label>
+                  <Input
+                    maxLength={30}
+                    name="elek_totaal_jaar_mnd"
+                    id=""
+                    placeholder="Uw waarden"
+                    value={
+                      (parseFloat(props.value.elek_stroom_gas_jr) || 0) +
+                      (parseFloat(props.value.gas_stroom_gas_jr) || 0)
+                    }
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Section for gas data */}
             <h6>Gas m3</h6>
             <div className="grid grid-cols-12 gap-4 mb-2">
               <div className="col-span-6">
                 <div className="flex flex-col space-y-1.5">
-                <Input
+                <Label>Aantal</Label>
+                  <Input
                     maxLength={30}
                     name="gas_aantal_kwh"
                     id=""
@@ -82,7 +114,8 @@ const Stap3: React.FC<Props> = (props) => {
               </div>
               <div className="col-span-6">
                 <div className="flex flex-col space-y-1.5">
-                <Input
+                <Label>Kale kWh / m3</Label>
+                  <Input
                     maxLength={30}
                     name="gas_kale_kwh"
                     id=""
@@ -93,6 +126,39 @@ const Stap3: React.FC<Props> = (props) => {
                 </div>
               </div>
             </div>
+            <div className="grid grid-cols-12 gap-4 mb-2">
+              <div className="col-span-6">
+                <div className="flex flex-col space-y-1.5">
+                <Label>Stroom/gas jr</Label>
+                  <Input
+                    maxLength={30}
+                    name="gas_stroom_gas_jr"
+                    id=""
+                    placeholder="Uw waarden"
+                    value={props.value.gas_stroom_gas_jr}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="col-span-6">
+                <div className="flex flex-col space-y-1.5">
+                <Label>Totaal jaar/mnd</Label>
+                  <Input
+                    maxLength={30}
+                    name="gas_totaal_jaar_mnd"
+                    id=""
+                    placeholder="Uw waarden"
+                    value={
+                      (parseFloat(props.value.elek_totaal_jaar_mnd) || 0) / 12
+                    }
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+            </div>
+            
+
+            {/* Section for household and additional data */}
             <div className="grid grid-cols-12 gap-4 mt-2">
               <div className="col-span-6">
                 <div className="flex flex-col space-y-1.5">
@@ -112,7 +178,7 @@ const Stap3: React.FC<Props> = (props) => {
               <div className="col-span-6">
                 <div className="flex flex-col space-y-1.5">
                   <Label className="" htmlFor="framework">
-                    Lager gasvebruik
+                    Lager gasverbruik
                   </Label>
                   <Input
                     maxLength={30}
@@ -125,6 +191,7 @@ const Stap3: React.FC<Props> = (props) => {
                 </div>
               </div>
             </div>
+
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-6">
                 <div className="flex flex-col space-y-1.5">
@@ -136,8 +203,9 @@ const Stap3: React.FC<Props> = (props) => {
                     name="woon_oppervlak"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.value.woon_oppervlak}
+                    value={props.value.woon_oppervlak + " "+ "m2"}
                     onChange={handleChange}
+                    disabled={true}
                   />
                 </div>
               </div>
@@ -157,21 +225,22 @@ const Stap3: React.FC<Props> = (props) => {
                 </div>
               </div>
             </div>
+
             <div className="flex flex-col space-y-1.5 mb-1">
               <Label className="" htmlFor="framework">
-                Totaal aantal kilometers per jaar met elektricsche auto
+                Totaal aantal kilometers per jaar met elektrische auto
               </Label>
               <Input
-                    maxLength={30}
-                    name="km_met_elek_auto"
-                    id=""
-                    placeholder="Uw waarden"
-                    value={props.value.km_met_elek_auto}
-                    onChange={handleChange}
-                  />
+                maxLength={30}
+                name="km_met_elek_auto"
+                id=""
+                placeholder="Uw waarden"
+                value={props.value.km_met_elek_auto}
+                onChange={handleChange}
+              />
             </div>
           </div>
-          <Button type="submit">Test</Button>
+
         </form>
       </div>
     </>

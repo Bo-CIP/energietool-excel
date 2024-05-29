@@ -6,6 +6,7 @@ interface AuthSessionStatusProps {
     [key: string]: any; // To allow for additional props
 }
 
+// Check de session uit de database voor een geregistreerde en ingelogde user
 const AuthSessionStatus: React.FC<AuthSessionStatusProps> = ({ status, className = '', ...props }) => (
     <>
         {status && (

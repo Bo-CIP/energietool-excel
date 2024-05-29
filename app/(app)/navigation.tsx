@@ -1,11 +1,9 @@
 import React from "react";
-import Dropdown from "@/components/ui/Dropdown";
 import Link from "next/link";
 import NavLink from "@/components/ui/NavLink";
 import ResponsiveNavLink, {
   ResponsiveNavButton,
 } from "@/components/ui/ResponsiveNavLink";
-import { DropdownButton } from "@/components/ui/DropdownLink";
 import { useAuth } from "@/hooks/auth";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
