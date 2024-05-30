@@ -56,12 +56,11 @@ const Stap4: React.FC<Props> = (props) => {
                   </Label>
                   <Input
                     maxLength={30}
-                    name="elek_aantal_kwh"
+                    name="kwh_netto_levering"
                     id=""
                     placeholder="Uw waarden"
-                    value={props.value.elek_aantal_kwh}
+                    value={props.value.kwh_netto_levering}
                     onChange={handleChange}
-                    disabled={true}
                   />
                 </div>
               </div>

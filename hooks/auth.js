@@ -23,6 +23,34 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
             }),
     )
 
+    // Gebruik SWR om de contactpersoon op te halen.
+    const { data: contact, error: contactError, mutate: mutateContact } = useSWR('/dashboard', () =>
+        axios
+            .get('/dashboard')
+            .then(res => res.data)
+            .catch(error => {
+                if (error.response.status !== 409) throw error
+            }),
+    )
+
+    const { data: adres, error: adresError, mutate: adresContact } = useSWR('/dashboard', () =>
+        axios
+            .get('/dashboard')
+            .then(res => res.data)
+            .catch(error => {
+                if (error.response.status !== 409) throw error
+            }),
+    )
+
+    const { data: gebouw, error: pandError, mutate: pandContact } = useSWR('/dashboard', () =>
+        axios
+            .get('/dashboard')
+            .then(res => res.data)
+            .catch(error => {
+                if (error.response.status !== 409) throw error
+            }),
+    )
+
     // Haal een CSRF-token op om beveiligde verzoeken te kunnen sturen.
     const csrf = () => axios.get('/sanctum/csrf-cookie')
 
@@ -108,6 +136,29 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
             })
     }
 
+    // Functie om de dashboardgegevens op te halen.
+    const dashboard = async ({ setErrors, ...props }) => {
+        await csrf()
+
+        setErrors([])
+
+        axios
+            .get('/dashboard', props)
+            .then(() => {
+                mutate()
+                mutateContact() // Mutate de contactgegevens ook bijwerken
+            }) 
+            .catch(error => {
+                if (error.response.status == 422) {
+                    toast({
+                        title: "Er is een fout opgetreden",
+                        description: "uw verzoek kon niet worden doorgezet",
+                    })
+                }
+                setErrors(error.response.data.errors)
+            }) 
+    }
+
     // Functie om een wachtwoordreset aan te vragen.
     const forgotPassword = async ({ setErrors, setStatus, email }) => {
         await csrf()
@@ -175,6 +226,9 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     // Retourneer alle functies en de gebruikersgegevens.
     return {
         user,
+        contact, // Voeg contact toe aan de geretourneerde waarden
+        adres,
+        gebouw,
         register,
         pand,
         berekening,
@@ -183,5 +237,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
         resetPassword,
         resendEmailVerification,
         logout,
+        dashboard
     }
 }

@@ -25,9 +25,6 @@ const Stap3: React.FC<Props> = (props) => {
     }));
   };
 
-  const elekStroomGasJr= parseFloat(props.value.elek_stroom_gas_jr) || 0;
-  const gasStroomGasJr= parseFloat(props.value.gas_stroom_gas_jr) || 0;
-  const totalStroomGasJr = elekStroomGasJr + gasStroomGasJr;
 
   return (
     <>
@@ -86,10 +83,7 @@ const Stap3: React.FC<Props> = (props) => {
                     name="elek_totaal_jaar_mnd"
                     id=""
                     placeholder="Uw waarden"
-                    value={
-                      (parseFloat(props.value.elek_stroom_gas_jr) || 0) +
-                      (parseFloat(props.value.gas_stroom_gas_jr) || 0)
-                    }
+                    value={props.value.elek_totaal_jaar_mnd}
                     onChange={handleChange}
                   />
                 </div>
@@ -148,8 +142,7 @@ const Stap3: React.FC<Props> = (props) => {
                     name="gas_totaal_jaar_mnd"
                     id=""
                     placeholder="Uw waarden"
-                    value={
-                      (parseFloat(props.value.elek_totaal_jaar_mnd) || 0) / 12
+                    value={props.value.gas_totaal_jaar_mnd
                     }
                     onChange={handleChange}
                   />
@@ -205,7 +198,6 @@ const Stap3: React.FC<Props> = (props) => {
                     placeholder="Uw waarden"
                     value={props.value.woon_oppervlak + " "+ "m2"}
                     onChange={handleChange}
-                    disabled={true}
                   />
                 </div>
               </div>

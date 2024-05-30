@@ -11,10 +11,9 @@ import Link from "next/link";
 
 // Import Swiper styles
 import "swiper/css";
-import { SetStateAction, useActionState, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { FinalForm } from "@/lib/definitions";
-import { ZodError, ZodIssue } from "zod";
 import { useAuth } from "@/hooks/auth";
 
 export default () => {
