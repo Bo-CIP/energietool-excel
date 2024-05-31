@@ -46,18 +46,23 @@ interface Pand {
   bouwjaar: string;
 }
 
+interface Energielabel{
+  label: string;
+}
+
 interface Props {
   user: User | null;
   contact: Contact | null;
   adres: Adres | null;
   pand: Pand | null;
+  energielabel: Energielabel | null;
   value: FinalForm;
   setValue: Dispatch<SetStateAction<FinalForm>>;
 }
 
 
 const LandingsDashboard: React.FC<Props> = () => {
-  const { user, contact, adres, gebouw, dashboard } = useAuth({
+  const { user, contact, adres, gebouw, energielabel, dashboard } = useAuth({
     middleware: "guest",
     redirectIfAuthenticated: "/dashboard",
   });
@@ -293,25 +298,14 @@ const LandingsDashboard: React.FC<Props> = () => {
       </ul>
     <Separator className="my-4" />
     <div className="grid gap-3">
-      <div className="font-semibold">Customer Information</div>
+      <div className="font-semibold mb-3 mt-9">Energielabel</div>
       <div className="grid gap-3">
         <div className="flex items-center justify-between">
-          <dt className="text-muted-foreground">Customer</dt>
-          <dd>Liam Johnson</dd>
-        </div>
-        <div className="flex items-center justify-between">
-          <div className="text-muted-foreground">Email</div>
-          <div>
-            <a href="mailto:">liam@acme.com</a>
-          </div>
-        </div>
-        <div className="flex items-center justify-between">
-          <div className="text-muted-foreground">Phone</div>
-          <div>
-            <a href="tel:">+1 234 567 890</a>
-          </div>
-        </div>
+          <div className="text-muted-foreground">Huidig energielabel</div>
+          <div>{energielabel?.label}</div>
       </div>
+    </div>
+    
     </div>
     <Separator className="my-4" />
   </CardContent>

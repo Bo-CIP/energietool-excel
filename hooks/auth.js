@@ -42,6 +42,15 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
             }),
     )
 
+    const { data: energielabel, error: energielabelError, mutate: mutateEnergielabel } = useSWR('/dashboard', () =>
+        axios
+            .get('/dashboard')
+            .then(res => res.data)
+            .catch(error => {
+                if (error.response.status !== 409) throw error
+            }),
+    )
+
     const { data: gebouw, error: pandError, mutate: pandContact } = useSWR('/dashboard', () =>
         axios
             .get('/dashboard')
@@ -229,6 +238,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
         contact, // Voeg contact toe aan de geretourneerde waarden
         adres,
         gebouw,
+        energielabel,
         register,
         pand,
         berekening,
